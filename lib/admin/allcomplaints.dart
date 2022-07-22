@@ -1,20 +1,21 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/Shared/companents.dart';
 import 'package:project/admin/showmassage.dart';
 import 'package:project/cubit/admincubit/admincubit.dart';
-
 import 'package:project/cubit/admincubit/adminstates.dart';
 import 'package:project/models/complaintmodel.dart';
 
-class Showcomplaints extends StatelessWidget {
-  // const Showcomplaints({Key? key}) : super(key: key);
+class allcomplaints extends StatelessWidget {
+  // const allcomplaints({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
-    admincubit.get(context).getcomp();
+    admincubit.get(context).getallcomp();
     return BlocConsumer<admincubit, adminStates>(
       builder: (BuildContext context, state) {
         return Scaffold(
@@ -26,24 +27,23 @@ class Showcomplaints extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ConditionalBuilder(
                 builder: (BuildContext context) {
-                  if(admincubit.get(context).compla.isNotEmpty)
+                  if(admincubit.get(context).allcompla.isNotEmpty)
                   return ListView.separated(
               itemBuilder: (BuildContext context, int index) {
-                return comp(model: admincubit.get(context).compla[index],context: context);
+                return comp(model: admincubit.get(context).allcompla[index],context: context);
               },
-              itemCount: admincubit.get(context).compla.length,
+              itemCount: admincubit.get(context).allcompla.length,
               separatorBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 4,
                   // color: Colors.grey,
                   width: double.infinity,
-                
                 );
               },
           );
              else 
              return Center(
-              child: Text("No New complaints"),
+              child: Text("No  complaints"),
              );
                 },
                 condition: state is compsucc,
@@ -55,9 +55,9 @@ class Showcomplaints extends StatelessWidget {
       },
       listener: (BuildContext context, Object? state) {},
     );
+  
   }
-
-  Widget comp({required complaintmodel model,context}) => Container(
+   Widget comp({required complaintmodel model,context}) => Container(
 
     decoration: BoxDecoration(
                                    color: Colors.blue.withOpacity(0.05),
@@ -83,11 +83,11 @@ class Showcomplaints extends StatelessWidget {
               
             ),
             Spacer(),
-            Expanded(
-              child: TextButton(onPressed: (){
-                NavegatorPush(context, showmassage(model: model));
-              }, child: Text("Show Massage",style: TextStyle(fontSize: 12),), ),
-            ),
+            // Expanded(
+            //   child: TextButton(onPressed: (){
+            //     NavegatorPush(context, showmassage(model: model));
+            //   }, child: Text("Show Massage",style: TextStyle(fontSize: 12),), ),
+            // ),
             
 
           ],

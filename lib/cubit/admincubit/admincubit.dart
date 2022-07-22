@@ -264,7 +264,27 @@ FirebaseFirestore.instance.collection('complaints').doc(id).update({"adminrep":t
 }
 
 
+List<complaintmodel>  allcompla=[];
+void getallcomp(){
+  emit(comploading());
+  allcompla=[];
+   FirebaseFirestore.instance
+        .collection('complaints').get().then((value)  {
+         value.docs.forEach((element) {
+          if(element['adminrep']==true)
+          allcompla.add(complaintmodel.fromjson(element.data()));
+          });
+
+        }).then((value)  {
+  emit(compsucc());
+     
+
+        }).catchError((onError){
+  emit(comperoor());
+
+        });
+
 
  
 
-}
+}}

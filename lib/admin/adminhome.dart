@@ -7,6 +7,7 @@ import 'package:project/admin/addadrtoaroad.dart';
 import 'package:project/admin/addmarker.dart';
 import 'package:project/admin/addnewdriver.dart';
 import 'package:project/admin/addroad.dart';
+import 'package:project/admin/allcomplaints.dart';
 import 'package:project/admin/showcomplaints.dart';
 import 'package:project/cubit/admincubit/admincubit.dart';
 import 'package:project/cubit/admincubit/adminstates.dart';
@@ -94,9 +95,20 @@ class adminhome extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     color: Colors.teal[500],
-                    child: Center(child: const Text("Show complaints")),
+                    child: Center(child: const Text("Show New complaints")),
                   ),
                 ),
+                    InkWell(
+                  onTap: () {
+                    NavegatorPush(context, allcomplaints());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[500],
+                    child: Center(child: const Text("Show All complaints")),
+                  ),
+                ),
+              
                    InkWell(
                   onTap: () {
                     casheHelber.removeData(key: 'uId').then((value) {
@@ -166,3 +178,5 @@ class adminhome extends StatelessWidget {
     );
   }
 }
+
+
